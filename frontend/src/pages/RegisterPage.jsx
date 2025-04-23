@@ -9,7 +9,10 @@ function RegisterPage() {
 
   return (
     <div>
-      <form className="text-white border bg-amber-500 border-black" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="text-white border bg-amber-500 border-black"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <input type="text" {...register("name")} />
         <input type="email" {...register("email")} />
         <input type="password" {...register("password")} />

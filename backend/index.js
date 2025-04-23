@@ -4,12 +4,14 @@ import { config } from "dotenv";
 import userRouter from "./routes/userRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRoutes.js";
+import cors from "cors";
 
 config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 // app.use(express.urlencoded())
 
 connectDB();

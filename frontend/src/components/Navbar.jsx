@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router";
 
 function Navbar() {
   return (
-    <div className='text-lg font-stretch-50% text-gray'>Navbar</div>
-  )
+    <div className="text-4xl font-stretch-50% text-gray">
+      <Link to={"/login"}>Login</Link>
+      <br />
+      <Link to={"/register"}>SignUp</Link>
+    </div>
+  );
 }
 
-export default Navbar
+export default Navbar;
