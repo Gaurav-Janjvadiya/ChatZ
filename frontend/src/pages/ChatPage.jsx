@@ -1,10 +1,12 @@
 import React from "react";
-import useAuth from "../context/AuthContext";
+import ChatBar from "../components/ChatBar";
 
 function ChatPage() {
-  const data = useAuth();
-  console.log(data);
-  return <div>ChatPage</div>;
+  return (
+    <div>
+      <ChatBar />
+    </div>
+  );
 }
 
 export default ChatPage;

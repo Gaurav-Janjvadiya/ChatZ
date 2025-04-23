@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-function ChatBox() {
-  return (
-    <div>ChatBox</div>
-  )
+function ChatBox({ name }) {
+  return <div className="p-4 w-1/3 cursor-pointer bg-slate-400">{name}</div>;
 }
 
-export default ChatBox
+export default ChatBox;

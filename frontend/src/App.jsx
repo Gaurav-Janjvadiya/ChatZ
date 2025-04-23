@@ -1,20 +1,12 @@
-import React, { useEffect } from "react";
-import { Outlet } from "react-router";
-import Navbar from "./components/Navbar";
+// import React from "react";
+// import { Link } from "react-router-dom";
 
-function App() {
-  useEffect(() => {
-    axiosInstance
-      .get("/message/vishal")
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
-  }, []);
-  return (
-    <>
-      <Navbar />
-      <Outlet />
-    </>
-  );
-}
+// function App() {
+//   return (
+//     <div>
+//       <Link to="/register">Get Started</Link>
+//     </div>
+//   );
+// }
 
-export default App;
+// export default App;

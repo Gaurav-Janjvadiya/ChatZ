@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import ChatBox from "./ChatBox";
+import useAuth from "../context/AuthContext.jsx";
 
-function ChatList() {
+function ChatList({ chatList }) {
+  const {
+    user: { name },
+  } = useAuth();
   return (
-    <div>ChatList</div>
-  )
+    <div>
+      {chatList?.map((chat) => (
+        <ChatBox name={chat.users.find((user) => user.name !== name).name} />
+      ))}
+    </div>
+  );
 }
 
-export default ChatList
+export default ChatList;
