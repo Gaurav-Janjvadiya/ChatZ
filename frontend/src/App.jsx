@@ -1,12 +1,14 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
+import React from "react";
+import { Outlet, Link } from "react-router";
+import NavBar from "./components/NavBar";
 
-// function App() {
-//   return (
-//     <div>
-//       <Link to="/register">Get Started</Link>
-//     </div>
-//   );
-// }
+function App() {
+  return (
+    <div>
+      <NavBar />
+      <Outlet />
+    </div>
+  );
+}
 
-// export default App;
+export default App;

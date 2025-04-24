@@ -1,4 +1,4 @@
-// import App from "./App.jsx";
+import App from "./App.jsx";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
@@ -10,10 +10,20 @@ import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
-  // {
-  //   path: "/",
-  //   element: <App />,
-  // },
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/chat/",
+        element: (
+          <ProtectedRoute>
+            <ChatPage />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
   {
     path: "/register",
     element: <RegisterPage />,
@@ -21,14 +31,6 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
-  },
-  {
-    path: "/chat",
-    element: (
-      <ProtectedRoute>
-        <ChatPage />
-      </ProtectedRoute>
-    ),
   },
 ]);
 

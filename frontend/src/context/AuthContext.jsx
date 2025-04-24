@@ -7,11 +7,13 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({ isLoggedIn: false, name: null });
 
   const login = (name) => setUser({ name, isLoggedIn: true });
-  const logout = () => setUser({ name: null, isLoggedIn: false });
+  const logout = () => {
+    setUser({ name: null, isLoggedIn: false });
+    localStorage.removeItem("jwt");
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-    console.log(token);
     if (token) {
       const { name } = jwtDecode(token);
       setUser({ isLoggedIn: true, name });

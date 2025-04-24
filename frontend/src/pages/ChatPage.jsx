@@ -3,7 +3,7 @@ import ChatBar from "../components/ChatBar";
 
 function ChatPage() {
   return (
-    <div>
+    <div className="">
       <ChatBar />
     </div>
   );

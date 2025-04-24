@@ -4,6 +4,7 @@ import User from "../models/User.js";
 
 export const sendMessage = async (req, res) => {
   const { content, receiver } = req.body;
+  console.log(content, receiver);
   try {
     const otherUser = await User.findOne({ name: receiver });
     console.log(otherUser);
@@ -28,13 +29,17 @@ export const sendMessage = async (req, res) => {
 export const fetchMessages = async (req, res) => {
   const { name: otherUserName } = req.params;
   const currentUserName = req.name;
+  console.log(otherUserName, currentUserName);
 
   try {
     const users = await User.find({
       name: { $in: [otherUserName, currentUserName] },
     });
     const chat = await Chat.find({ users: [users[0]._id, users[1]._id] });
-    const messages = await Message.find({ chat: chat._id });
+    const messages = await Message.find({ chat: chat._id }).populate({
+      path: "sender",
+      select: "name",
+    });
     res.json({ messages });
   } catch (error) {
     console.log("Error during fetching msgs", error);
