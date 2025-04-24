@@ -1,23 +1,23 @@
 import React from "react";
 import ChatBox from "./ChatBox";
 import useAuth from "../context/AuthContext.jsx";
-import { Link } from "react-router";
 
 function ChatList({ chatList, setActiveReciever }) {
   const {
     user: { name },
   } = useAuth();
 
-  const handleClick = (name) => {
+  const onClick = (name) => {
     setActiveReciever(name);
   };
+
   return (
-    <div>
+    <div className="divide-y devide-gray-300 h-screen border border-white">
       {chatList?.map((chat) => (
         <ChatBox
           key={chat._id}
           name={chat.users.find((user) => user.name !== name).name}
-          onClick={handleClick}
+          onClick={onClick}
         />
       ))}
     </div>

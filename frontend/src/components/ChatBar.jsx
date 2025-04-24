@@ -14,8 +14,12 @@ function NameBar() {
     console.log(activeReciever);
   }, [activeReciever]);
   return (
-    <div>
-      <ChatList setActiveReciever={setActiveReciever} chatList={data?.chats} />
+    <div className="grid sm:grid-cols-1 md:grid-cols-2">
+      <ChatList
+        activeReciever={activeReciever}
+        setActiveReciever={setActiveReciever}
+        chatList={data?.chats}
+      />
       <MessageList activeReciever={activeReciever} />
     </div>
   );

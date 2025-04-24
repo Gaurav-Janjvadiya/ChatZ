@@ -4,15 +4,15 @@ import { config } from "dotenv";
 import userRouter from "./routes/userRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
 import messageRouter from "./routes/messageRoutes.js";
+import http from "http";
 import cors from "cors";
-
 config();
 
 const app = express();
+const server = http.createServer(app);
 
 app.use(express.json());
 app.use(cors());
-// app.use(express.urlencoded())
 
 connectDB();
 
@@ -24,6 +24,6 @@ app.use((err, req, res) => {
   console.log(err);
 });
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(`Server is running on port http://localhost:${process.env.PORT}`);
 });

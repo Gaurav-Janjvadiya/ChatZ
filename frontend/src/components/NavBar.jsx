@@ -1,21 +1,31 @@
 import React from "react";
 import useAuth from "../context/AuthContext";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import Chip from "@mui/material/Chip";
 
 function NavBar() {
   const {
     user: { isLoggedIn },
     logout,
   } = useAuth();
+  const navigate = useNavigate();
   return (
-    <div>
+    <div className="text-white bg-white">
       {isLoggedIn ? (
-        <button onClick={() => logout()}>Logout</button>
+        <>
+          <Chip
+            label="Logout"
+            onClick={() => {
+              logout();
+              navigate("/");
+            }}
+          />
+          <br />
+        </>
       ) : (
         <>
-          <Link to={"/login"}>Login</Link>
-          <br />
-          <Link to={"/register"}>SignUp</Link>
+          <Chip label="SignUp" component={Link} to={"/register"} clickable />
+          <Chip label="Login" component={Link} to={"/login"} clickable />
         </>
       )}
     </div>

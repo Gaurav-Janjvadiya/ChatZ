@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { sendMessage } from "../api/message.js";
@@ -19,8 +18,15 @@ function MessageInput({ receiver }) {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" {...register("content")} />
+      <form
+        className="flex items-center justify-center"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <input
+          className="border border-black p-2 rounded-xl m-1 outline-none"
+          type="text"
+          {...register("content")}
+        />
         <button>Send</button>
       </form>
     </div>
