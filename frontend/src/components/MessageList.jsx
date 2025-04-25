@@ -1,34 +1,40 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchMessages } from "../api/message.js";
 import useAuth from "../context/AuthContext.jsx";
 import MessageInput from "./MessageInput.jsx";
-import { io } from "socket.io-client";
+import MessageBubble from "./MessageBubble.jsx";
+import useMessages from "../hooks/useMessages.js";
 
 function MessageList({ activeReciever }) {
-  const { data } = useQuery({
-    queryKey: ["fetchMessages", activeReciever],
-    queryFn: () => fetchMessages(activeReciever && activeReciever),
-  });
+  const { isLoading, messages } = useMessages(activeReciever);
+
   const {
     user: { name },
   } = useAuth();
 
   return activeReciever ? (
     <div>
-      {data?.messages.map((message) => (
-        <div
-          className={`flex items-end ${
-            !(name == message.sender.name) ? "justify-end" : "justify-start"
-          } m-1`}
-          key={message._id}
-        >
-          <p className="border border-black p-2 rounded-xl">
-            {message.content}
-          </p>
-        </div>
-      ))}
-      <MessageInput receiver={activeReciever} />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <div className=" h-4/5">
+            {messages?.length === 0 ? (
+              <i className="text-gray-600">Say Hii</i>
+            ) : (
+              <>
+                {messages?.map((message) => (
+                  <MessageBubble
+                    key={message._id}
+                    message={message}
+                    name={name}
+                  />
+                ))}
+              </>
+            )}
+          </div>
+          <MessageInput receiver={activeReciever} />
+        </>
+      )}
     </div>
   ) : (
     <p>PLEASE SELECT A USER</p>

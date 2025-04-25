@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
 
-function MessageBubble() {
+function MessageBubble({ name, message }) {
   return (
-    <div>MessageBubble</div>
-  )
+    <div
+      className={`flex items-center ${
+        !(name == message.sender.name) ? "justify-end" : "justify-start"
+      } m-1`}
+      key={message._id}
+    >
+      <p className="border border-black p-2 rounded-xl">{message.content}</p>
+    </div>
+  );
 }
 
-export default MessageBubble
+export default React.memo(MessageBubble);

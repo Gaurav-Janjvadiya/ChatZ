@@ -1,10 +1,14 @@
 import React from "react";
-import { List, ListItem, ListItemText, Divider } from "@mui/material";
 
 function ChatBox({ name, onClick }) {
   return (
     <>
-      
+      <div
+        onClick={() => onClick(name)}
+        className={`bg-gray-600 p-4 rounded-s cursor-pointer`}
+      >
+        {name}
+      </div>
     </>
   );
 }

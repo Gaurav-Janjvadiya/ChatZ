@@ -12,7 +12,7 @@ function ChatList({ chatList, setActiveReciever }) {
   };
 
   return (
-    <div className="divide-y devide-gray-300 h-screen border border-white">
+    <div className="divide-y devide-gray-300 h-screen border border-black">
       {chatList?.map((chat) => (
         <ChatBox
           key={chat._id}

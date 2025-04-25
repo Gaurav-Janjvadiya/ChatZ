@@ -1,18 +1,23 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { sendMessage } from "../api/message.js";
+import useSendMessages from "../hooks/useSendMessages";
+import socket from "../socket.js";
+import { useEffect } from "react";
 
 function MessageInput({ receiver }) {
   const { register, handleSubmit } = useForm();
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationKey: ["sendMessage"],
-    mutationFn: sendMessage,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries("fetchMessages");
-      console.log(data);
-    },
-  });
+  const { isPending, mutate } = useSendMessages();
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Connected");
+    });
+    socket.on("welcome", (s) => {
+      console.log(s);
+    });
+
+    
+  }, []);
+
   const onSubmit = (content) => {
     mutate({ content, receiver });
   };
@@ -27,7 +32,13 @@ function MessageInput({ receiver }) {
           type="text"
           {...register("content")}
         />
-        <button>Send</button>
+        <button
+          type="submit"
+          className={`${isPending ? "bg-gray-600" : "bg-white"}`}
+          disabled={isPending}
+        >
+          {isPending ? "wait" : "Send"}
+        </button>
       </form>
     </div>
   );
