@@ -18,7 +18,7 @@ function LoginPage() {
     mutationFn: loginUser,
     onSuccess: ({ token }) => {
       login();
-      console.log(isLoggedIn);
+      // console.log(isLoggedIn);
       localStorage.setItem("jwt", token);
       navigate("/chat");
     },

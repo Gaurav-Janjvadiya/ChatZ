@@ -45,9 +45,12 @@ io.on("connection", (socket) => {
     socket.join(room);
     console.log("User joined room " + room);
   });
-
   socket.on("send_message", (room, message, sender) => {
-    io.to(room).emit("new_message", { sender, content: message.data.content });
+    console.log({ room, message, sender });
+    io.to(room).emit("new_message", {
+      sender,
+      message
+    });
   });
 
   socket.on("disconnect", () => {

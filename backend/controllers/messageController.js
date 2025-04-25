@@ -4,10 +4,10 @@ import User from "../models/User.js";
 
 export const sendMessage = async (req, res) => {
   const { content, receiver } = req.body;
-  console.log(content, receiver);
+  // console.log(content, receiver);
   try {
     const otherUser = await User.findOne({ name: receiver });
-    console.log(otherUser);
+    // console.log(otherUser);
     const sender = await User.find({ name: req.name });
     const chat = await Chat.find({ users: [sender[0]._id, receiver[1]._id] });
     const message = await Message.create({
@@ -15,10 +15,10 @@ export const sendMessage = async (req, res) => {
       chat: chat._id,
       content,
     });
-    const UpdatedChat = await Chat.updateOne(chat._id, {
+    await Chat.updateOne(chat._id, {
       lastMessage: message._id,
     });
-    console.log(UpdatedChat);
+    // console.log(UpdatedChat);
     res.json({ message });
   } catch (error) {
     console.log("Error during sending msg", error);
@@ -29,7 +29,7 @@ export const sendMessage = async (req, res) => {
 export const fetchMessages = async (req, res) => {
   const { name: otherUserName } = req.params;
   const currentUserName = req.name;
-  console.log(otherUserName, currentUserName);
+  // console.log(otherUserName, currentUserName);
 
   try {
     const users = await User.find({
