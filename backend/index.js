@@ -40,5 +40,17 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log("Connected ", socket.id);
-  socket.to("CBof1c6wwNqVz-L6AAAD").emit("welcome", "welcome " + socket.id);
+
+  socket.on("join_room", (room) => {
+    socket.join(room);
+    console.log("User joined room " + room);
+  });
+
+  socket.on("send_message", (room, message, sender) => {
+    io.to(room).emit("new_message", { sender, content: message.data.content });
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
 });

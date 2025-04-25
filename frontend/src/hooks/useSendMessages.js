@@ -6,9 +6,6 @@ const useSendMessages = () => {
   const { isPending, mutate } = useMutation({
     mutationKey: ["sendMessage"],
     mutationFn: sendMessage,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries("fetchMessages");
-    },
   });
 
   return { isPending, mutate };
