@@ -2,6 +2,7 @@ import React from "react";
 import useAuth from "../context/AuthContext";
 import { Link, useNavigate } from "react-router";
 import Chip from "@mui/material/Chip";
+import { Box } from "@mui/material";
 
 function NavBar() {
   const {
@@ -10,7 +11,20 @@ function NavBar() {
   } = useAuth();
   const navigate = useNavigate();
   return (
-    <div className="text-white bg-white">
+    <Box
+      sx={{
+        border: "1px solid gray",
+        padding: "1rem .5rem",
+        height: "100%",
+        width: "auto",
+        display: "flex",
+        alignItems: "start",
+        justifyItems: "center",
+        flexDirection: "column",
+        gap: ".5rem",
+        borderRadius: "1rem",
+      }}
+    >
       {isLoggedIn ? (
         <>
           <Chip
@@ -28,7 +42,7 @@ function NavBar() {
           <Chip label="Login" component={Link} to={"/login"} clickable />
         </>
       )}
-    </div>
+    </Box>
   );
 }
 

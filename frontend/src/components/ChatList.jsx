@@ -1,6 +1,7 @@
 import React from "react";
 import ChatBox from "./ChatBox";
 import useAuth from "../context/AuthContext.jsx";
+import { Box } from "@mui/material";
 
 function ChatList({ chatList, setActiveReciever }) {
   const {
@@ -12,7 +13,16 @@ function ChatList({ chatList, setActiveReciever }) {
   };
 
   return (
-    <div className="divide-y devide-gray-300 h-screen border border-black">
+    <Box
+      sx={{
+        height: "100%",
+        border: "1px solid gray",
+        borderRadius: "1rem",
+        padding: "1rem 0.5rem",
+        gap: "10px",
+        width: "30em",
+      }}
+    >
       {chatList?.map((chat) => (
         <ChatBox
           key={chat._id}
@@ -20,7 +30,7 @@ function ChatList({ chatList, setActiveReciever }) {
           onClick={onClick}
         />
       ))}
-    </div>
+    </Box>
   );
 }
 

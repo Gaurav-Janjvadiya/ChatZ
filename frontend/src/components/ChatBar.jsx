@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import ChatList from "./ChatList.jsx";
 import MessageList from "./MessageList.jsx";
 import useChats from "../hooks/useChats.js";
+import { Box } from "@mui/material";
 
 function NameBar() {
   const [activeReciever, setActiveReciever] = useState(null);
   const { isLoading, chats } = useChats();
 
   return (
-    <div className="grid grid-cols-2">
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        gap: "1rem",
+        alignItems: "center",
+      }}
+    >
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -21,7 +30,7 @@ function NameBar() {
         </>
       )}
       <MessageList activeReciever={activeReciever} />
-    </div>
+    </Box>
   );
 }
 
