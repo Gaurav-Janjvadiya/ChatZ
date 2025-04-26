@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchMessages } from "../api/message.js";
 
-const useMessages = (activeReciever) => {
+const useMessages = (activeReceiver) => {
   const { isLoading, data } = useQuery({
-    queryKey: ["fetchMessages", activeReciever],
-    queryFn: () => fetchMessages(activeReciever && activeReciever),
+    queryKey: ["fetchMessages", activeReceiver],
+    queryFn: () => fetchMessages(activeReceiver && activeReceiver),
     refetchOnWindowFocus: false,
-    enabled: Boolean(activeReciever),
+    enabled: Boolean(activeReceiver),
   });
   return { isLoading, messages: data?.messages };
 };

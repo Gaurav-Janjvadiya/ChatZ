@@ -1,8 +1,10 @@
 import React from "react";
 import Divider from "@mui/material/Divider";
 import { Chip } from "@mui/material";
+import { useChat } from "../context/ChatContext.jsx";
 
-function ChatBox({ name, onClick }) {
+function ChatBox({ name }) {
+  const { updateReceiver } = useChat();
   return (
     <>
       <Chip
@@ -17,7 +19,7 @@ function ChatBox({ name, onClick }) {
           fontSize: "large",
         }}
         label={name}
-        onClick={() => onClick(name)}
+        onClick={() => updateReceiver(name)}
       />
       <Divider />
     </>

@@ -8,6 +8,7 @@ import ChatPage from "./pages/ChatPage.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ChatProvider } from "./context/ChatContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,8 +39,10 @@ const client = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={client}>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <ChatProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </ChatProvider>
   </QueryClientProvider>
 );

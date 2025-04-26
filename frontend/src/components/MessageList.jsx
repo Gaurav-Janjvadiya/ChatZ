@@ -16,9 +16,11 @@ import MessageBubble from "./MessageBubble.jsx";
 import useMessages from "../hooks/useMessages.js";
 import socket from "../socket.js";
 import useSendMessages from "../hooks/useSendMessages";
+import { useChat } from "../context/ChatContext.jsx";
 
-function MessageList({ activeReciever }) {
-  const { isLoading, messages } = useMessages(activeReciever);
+function MessageList({}) {
+  const { activeReceiver } = useChat();
+  const { isLoading, messages } = useMessages(activeReceiver);
   const [currentMessages, setCurrentMessages] = useState([]);
   const containerRef = useRef(null);
   const {
@@ -29,12 +31,12 @@ function MessageList({ activeReciever }) {
 
   let room = useMemo(() => {
     let roomname;
-    if (activeReciever && name) {
-      roomname = [activeReciever, name].sort().join("_");
+    if (activeReceiver && name) {
+      roomname = [activeReceiver, name].sort().join("_");
       socket.emit("join_room", roomname);
     }
     return roomname;
-  }, [activeReciever, name]);
+  }, [activeReceiver, name]);
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -51,13 +53,13 @@ function MessageList({ activeReciever }) {
   }, []);
 
   const onSubmit = (content) => {
-    mutate({ content, receiver: activeReciever });
-    socket.emit("send_message", room, content.content, activeReciever);
+    mutate({ content, receiver: activeReceiver });
+    socket.emit("send_message", room, content.content, activeReceiver);
     containerRef.current.scrollIntoView({ behavior: "smooth" });
     reset();
   };
 
-  return activeReciever ? (
+  return activeReceiver ? (
     <Container
       maxWidth={false}
       sx={{
@@ -88,7 +90,7 @@ function MessageList({ activeReciever }) {
         </div>
       ) : (
         <>
-          <div className="h-[88%] p-3 w-full overflow-y-scroll">
+          <div className="h-[88%] w-full overflow-y-scroll">
             {messages?.length === 0 && currentMessages.length === 0 ? (
               <i className="text-gray-600">Say Hii</i>
             ) : (
@@ -103,7 +105,7 @@ function MessageList({ activeReciever }) {
                 {currentMessages.map((message, index) => (
                   <div
                     className={`flex items-center ${
-                      message.sender === activeReciever
+                      message.sender === activeReceiver
                         ? "justify-end"
                         : "justify-start"
                     } m-1`}

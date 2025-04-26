@@ -1,16 +1,15 @@
 import React from "react";
 import ChatBox from "./ChatBox";
 import useAuth from "../context/AuthContext.jsx";
-import { Box } from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
+import useChats from "../hooks/useChats.js";
 
-function ChatList({ chatList, setActiveReciever }) {
+function ChatList() {
+  const { isLoading, chats } = useChats();
+
   const {
     user: { name },
   } = useAuth();
-
-  const onClick = (name) => {
-    setActiveReciever(name);
-  };
 
   return (
     <Box
@@ -23,13 +22,43 @@ function ChatList({ chatList, setActiveReciever }) {
         width: "30em",
       }}
     >
-      {chatList?.map((chat) => (
-        <ChatBox
-          key={chat._id}
-          name={chat.users.find((user) => user.name !== name).name}
-          onClick={onClick}
-        />
-      ))}
+      {isLoading ? (
+        <div className="space-y-3">
+          <Skeleton
+            sx={{ bgcolor: "grey.400", borderRadius: "1rem" }}
+            variant="rectangular"
+            width={"100%"}
+            height={70}
+          />{" "}
+          <Skeleton
+            sx={{ bgcolor: "grey.400", borderRadius: "1rem" }}
+            variant="rectangular"
+            width={"100%"}
+            height={70}
+          />{" "}
+          <Skeleton
+            sx={{ bgcolor: "grey.400", borderRadius: "1rem" }}
+            variant="rectangular"
+            width={"100%"}
+            height={70}
+          />{" "}
+          <Skeleton
+            sx={{ bgcolor: "grey.400", borderRadius: "1rem" }}
+            variant="rectangular"
+            width={"100%"}
+            height={70}
+          />
+        </div>
+      ) : (
+        <>
+          {chats?.map((chat) => (
+            <ChatBox
+              key={chat._id}
+              name={chat.users.find((user) => user.name !== name).name}
+            />
+          ))}
+        </>
+      )}
     </Box>
   );
 }

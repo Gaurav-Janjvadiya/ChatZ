@@ -1,10 +1,12 @@
 import React from "react";
-import ChatBar from "../components/ChatBar";
+import ChatList from "../components/ChatList.jsx";
+import MessageList from "../components/MessageList.jsx";
 
 function ChatPage() {
   return (
     <>
-      <ChatBar />
+      <ChatList />
+      <MessageList />
     </>
   );
 }
