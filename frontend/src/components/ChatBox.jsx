@@ -1,27 +1,17 @@
 import React from "react";
-import Divider from "@mui/material/Divider";
-import { Chip } from "@mui/material";
 import { useChat } from "../context/ChatContext.jsx";
 
 function ChatBox({ name }) {
   const { updateReceiver } = useChat();
   return (
     <>
-      <Chip
-        sx={{
-          width: "100%",
-          margin: "10px 0",
-          textAlign: "start",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "start",
-          padding: "1.5rem 0",
-          fontSize: "large",
-        }}
-        label={name}
+      <div
+        className="w-full p-2 bg-gray-300 rounded-xl mb-1 cursor-pointer active:bg-gray-400"
         onClick={() => updateReceiver(name)}
-      />
-      <Divider />
+      >
+        {name}
+      </div>
+      <hr />
     </>
   );
 }

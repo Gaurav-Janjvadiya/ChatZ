@@ -1,25 +1,13 @@
 import React from "react";
-import { Outlet, Link } from "react-router";
+import { Outlet } from "react-router";
 import NavBar from "./components/NavBar";
-import { Container } from "@mui/material";
 
 function App() {
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        border: "1px solid black",
-        height: "100vh",
-        padding: "2rem",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "start",
-        gap: "1rem",
-      }}
-    >
+    <div className="box-border w-full h-full grid grid-cols-[auto_1fr_1fr] gap-x-1">
       <NavBar />
       <Outlet />
-    </Container>
+    </div>
   );
 }
 

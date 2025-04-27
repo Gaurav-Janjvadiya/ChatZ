@@ -1,16 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Box,
-  Button,
-  Chip,
-  Container,
-  Skeleton,
-  CircularProgress,
-  TextField,
-} from "@mui/material";
-import SendRoundedIcon from "@mui/icons-material/SendRounded";
-
 import useAuth from "../context/AuthContext.jsx";
 import MessageBubble from "./MessageBubble.jsx";
 import useMessages from "../hooks/useMessages.js";
@@ -18,11 +7,11 @@ import socket from "../socket.js";
 import useSendMessages from "../hooks/useSendMessages";
 import { useChat } from "../context/ChatContext.jsx";
 
-function MessageList({}) {
+function MessageList() {
   const { activeReceiver } = useChat();
   const { isLoading, messages } = useMessages(activeReceiver);
   const [currentMessages, setCurrentMessages] = useState([]);
-  const containerRef = useRef(null);
+  const endRef = useRef(null);
   const {
     user: { name },
   } = useAuth();
@@ -40,7 +29,7 @@ function MessageList({}) {
 
   useEffect(() => {
     socket.on("connect", () => {
-      console.log("Connected");
+      console.log("User Connected");
     });
 
     socket.on("new_message", (data) => {
@@ -55,123 +44,69 @@ function MessageList({}) {
   const onSubmit = (content) => {
     mutate({ content, receiver: activeReceiver });
     socket.emit("send_message", room, content.content, activeReceiver);
-    containerRef.current.scrollIntoView({ behavior: "smooth" });
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
     reset();
   };
 
-  return activeReceiver ? (
-    <Container
-      maxWidth={false}
-      sx={{
-        border: "1px solid gray",
-        borderRadius: "1rem",
-        padding: "0.5rem",
-        height: "100%",
-        width: "45em",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        flexDirection: "column",
-        gap: ".5rem",
-      }}
-    >
-      {isLoading ? (
-        <div className="w-full h-full flex flex-col gap-4 p-3">
-          {[...Array(6)].map((_, index) => (
-            <Skeleton
-              key={index}
-              variant="rounded"
-              width="80%"
-              height={40}
-              animation="wave"
-              sx={{ alignSelf: index % 2 === 0 ? "flex-start" : "flex-end" }}
-            />
-          ))}
-        </div>
-      ) : (
-        <>
-          <div className="h-[88%] w-full overflow-y-scroll">
-            {messages?.length === 0 && currentMessages.length === 0 ? (
-              <i className="text-gray-600">Say Hii</i>
-            ) : (
-              <>
-                {messages?.map((message) => (
-                  <MessageBubble
-                    key={message._id}
-                    message={message}
-                    name={name}
-                  />
-                ))}
-                {currentMessages.map((message, index) => (
-                  <div
-                    className={`flex items-center ${
-                      message.sender === activeReceiver
-                        ? "justify-end"
-                        : "justify-start"
-                    } m-1`}
-                    key={index}
-                  >
-                    <Chip
-                      label={message.message}
-                      variant="outlined"
-                      sx={{
-                        borderRadius: "16px",
-                        padding: "10px",
-                        maxWidth: "60%",
-                        whiteSpace: "normal",
-                        wordBreak: "break-word",
-                      }}
-                    />
-                  </div>
-                ))}
-              </>
-            )}
-            <div ref={containerRef}></div>
-          </div>
+  if (!activeReceiver) {
+    return (
+      <div className="flex border border-gray-500 p-3 rounded-xl items-center justify-center">
+        <p className="text-lg text-gray-600 font-medium">
+          Please select a user to start chatting
+        </p>
+      </div>
+    );
+  }
 
-          <div className="w-full h-[12%]">
-            <form
-              className="flex w-full items-center justify-center space-x-1 p-1 rounded-md"
-              onSubmit={handleSubmit(onSubmit)}
+  return (
+    <div className="p-2 h-full max-h-screen">
+      <div className="h-full border border-gray-500 p-3 rounded-xl flex flex-col items-center justify-between">
+        <div className="w-full h-[90%] space-y-1 overflow-y-scroll">
+          {messages?.map((message) => (
+            <MessageBubble key={message._id} message={message} name={name} />
+          ))}
+          {currentMessages.map((message, index) => (
+            <div
+              className={`w-full flex items-center  ${
+                name === message.sender ? "justify-start" : "justify-end"
+              }`}
+              key={index}
             >
-              <TextField
-                sx={{
-                  width: "90%",
-                  borderRadius: "10px",
-                  overflow: "hidden",
-                }}
-                id="filled-multiline-flexible"
-                label="Message"
-                multiline
-                maxRows={1}
-                variant="filled"
-                {...register("content")}
-              />
-              <Button
-                type="submit"
-                disabled={isPending}
-                sx={{
-                  height: "100%",
-                  width: "10%",
-                  backgroundColor: "lightgray",
-                  "&:hover": {
-                    opacity: "0.7",
-                  },
-                }}
-              >
-                {isPending ? (
-                  <CircularProgress size={24} color="inherit" />
-                ) : (
-                  <SendRoundedIcon fontSize="large" />
-                )}
-              </Button>
-            </form>
-          </div>
-        </>
-      )}
-    </Container>
-  ) : (
-    <p>PLEASE SELECT A USER</p>
+              <p className="w-fit p-2 border border-gray-800 rounded-lg flex items-center justify-start break-all">
+                {message.message}
+              </p>
+            </div>
+          ))}
+          <span ref={endRef}></span>
+        </div>
+        <div className="w-full">
+          <form
+            className="flex p-1 w-full space-x-1"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <input
+              className="outline-none w-full border border-gray-500 rounded-xl px-2 py-3"
+              type="text"
+              {...register("content", { required: true })}
+              placeholder="Type a message"
+            />
+            <button
+              type="submit"
+              className="border px-3 bg-gray-300 active:bg-slate-100 rounded-xl w-fit border-gray-500"
+              disabled={isPending}
+            >
+              {isPending ? (
+                <span className="spinner">Sending...</span>
+              ) : (
+                <span className="material-symbols-outlined text-gray-600 text-3xl">
+                  send
+                </span>
+              )}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 

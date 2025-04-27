@@ -1,25 +1,16 @@
 import React from "react";
-import { Chip } from "@mui/material";
 
 function MessageBubble({ name, message }) {
   return (
     <div
-      className={`flex items-center ${
-        name !== message.sender.name ? "justify-end" : "justify-start"
-      } m-1`}
+      className={`w-full flex items-center  ${
+        name === message.sender.name ? "justify-start" : "justify-end"
+      }`}
       key={message._id}
     >
-      <Chip
-        label={message.content}
-        variant="outlined"
-        sx={{
-          borderRadius: "16px",
-          padding: "10px",
-          maxWidth: "60%",
-          whiteSpace: "normal",
-          wordBreak: "break-word",
-        }}
-      />
+      <p className="w-fit p-2 border border-gray-800 rounded-lg flex items-center justify-start break-all">
+        {message.content}
+      </p>
     </div>
   );
 }

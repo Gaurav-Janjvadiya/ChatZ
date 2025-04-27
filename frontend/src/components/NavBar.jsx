@@ -1,8 +1,6 @@
 import React from "react";
 import useAuth from "../context/AuthContext";
 import { Link, useNavigate } from "react-router";
-import Chip from "@mui/material/Chip";
-import { Box } from "@mui/material";
 
 function NavBar() {
   const {
@@ -11,38 +9,39 @@ function NavBar() {
   } = useAuth();
   const navigate = useNavigate();
   return (
-    <Box
-      sx={{
-        border: "1px solid gray",
-        padding: "1rem .5rem",
-        height: "100%",
-        width: "auto",
-        display: "flex",
-        alignItems: "start",
-        justifyItems: "center",
-        flexDirection: "column",
-        gap: ".5rem",
-        borderRadius: "1rem",
-      }}
-    >
-      {isLoggedIn ? (
-        <>
-          <Chip
-            label="Logout"
-            onClick={() => {
-              logout();
-              navigate("/");
-            }}
-          />
-          <br />
-        </>
-      ) : (
-        <>
-          <Chip label="SignUp" component={Link} to={"/register"} clickable />
-          <Chip label="Login" component={Link} to={"/login"} clickable />
-        </>
-      )}
-    </Box>
+    <div className="p-2">
+      <div className="border h-full border-gray-500 rounded-xl p-2">
+        {isLoggedIn ? (
+          <>
+            <button
+              onClick={() => {
+                logout();
+                navigate("/");
+              }}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Logout
+            </button>
+            <br />
+          </>
+        ) : (
+          <>
+            <Link
+              to={"/register"}
+              className="bg-green-500 text-white px-4 py-2 rounded mr-2"
+            >
+              SignUp
+            </Link>
+            <Link
+              to={"/login"}
+              className="bg-yellow-500 text-white px-4 py-2 rounded"
+            >
+              Login
+            </Link>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 
