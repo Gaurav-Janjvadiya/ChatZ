@@ -50,10 +50,12 @@ function MessageList() {
 
   if (!activeReceiver) {
     return (
-      <div className="flex border border-gray-500 p-3 rounded-xl items-center justify-center">
-        <p className="text-lg text-gray-600 font-medium">
-          Please select a user to start chatting
-        </p>
+      <div className="p-2 h-full max-h-screen">
+        <div className="flex h-full border border-gray-500 p-3 rounded-xl items-center justify-center">
+          <p className="text-lg text-gray-600 font-medium">
+            Please select a user to start chatting
+          </p>
+        </div>
       </div>
     );
   }

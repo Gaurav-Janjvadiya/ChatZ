@@ -11,7 +11,7 @@ function ChatList() {
   } = useAuth();
 
   return (
-    <div className="p-2">
+    <div className="p-2 h-full">
       <div className="border h-full border-gray-500 rounded-xl px-2 py-4">
         {isLoading ? (
           <div className="space-y-3">Loading...</div>
