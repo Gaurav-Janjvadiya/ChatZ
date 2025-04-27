@@ -51,7 +51,7 @@ function MessageList() {
   if (!activeReceiver) {
     return (
       <div className="p-2 h-full max-h-screen">
-        <div className="flex h-full border border-gray-500 p-3 rounded-xl items-center justify-center">
+        <div className="flex h-full p-3 rounded-xl items-center justify-center">
           <p className="text-lg text-gray-600 font-medium">
             Please select a user to start chatting
           </p>
@@ -61,8 +61,8 @@ function MessageList() {
   }
 
   return (
-    <div className="p-2 h-full max-h-screen">
-      <div className="h-full border border-gray-500 p-3 rounded-xl flex flex-col items-center justify-between">
+    <div className="bg-[#121212] rounded-xl p-2 h-full max-h-screen">
+      <div className="h-full p-3 rounded-xl scroll flex flex-col items-center justify-between">
         <div className="w-full h-[90%] space-y-1 overflow-y-scroll">
           {messages?.map((message) => (
             <MessageBubble key={message._id} message={message} name={name} />
@@ -70,11 +70,13 @@ function MessageList() {
           {currentMessages.map((message, index) => (
             <div
               className={`w-full flex items-center  ${
-                name === message.sender ? "justify-start" : "justify-end"
+                name === message.sender
+                  ? "justify-start bg-[#2C2C2C]"
+                  : "justify-end bg[#1F1F1F]"
               }`}
               key={index}
             >
-              <p className="w-fit p-2 border border-gray-800 rounded-lg flex items-center justify-start break-all">
+              <p className="w-fit p-2  -700-400800 rounded-lg flex items-center justify-start break-all">
                 {message.message}
               </p>
             </div>
@@ -87,20 +89,20 @@ function MessageList() {
             onSubmit={handleSubmit(onSubmit)}
           >
             <input
-              className="outline-none w-full border border-gray-500 rounded-xl px-2 py-3"
+              className="bg-[#222222] outline-none w-full rounded-xl px-2 py-3"
               type="text"
               {...register("content", { required: true })}
               placeholder="Type a message"
             />
             <button
               type="submit"
-              className="border px-3 bg-gray-300 active:bg-slate-100 rounded-xl w-fit border-gray-500"
+              className=" px-3 bg-[#222222] rounded-xl w-fit "
               disabled={isPending}
             >
               {isPending ? (
                 <span className="spinner">Sending...</span>
               ) : (
-                <span className="material-symbols-outlined text-gray-600 text-3xl">
+                <span className="material-symbols-outlined text-3xl">
                   send
                 </span>
               )}

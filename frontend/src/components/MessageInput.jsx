@@ -9,7 +9,7 @@ function MessageInput({ sendMessageHandler }) {
           <TextField
             sx={{
               width: "90%",
-              borderRadius: "10px",
+              Radius: "10px",
               overflow: "hidden",
             }}
             id="filled-multiline-flexible"

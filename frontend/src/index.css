@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  box-sizing: border-box;
+  box-sizing: box;
   padding: 0;
   margin: 0;
 }
@@ -13,9 +13,17 @@
 }
 
 body {
-  background-color: #f3f3f3;
+  background-color: #222222;
+  color: #e0e0e0;
   height: 100vh;
   width: 100%;
-  box-sizing: border-box;
+  box-sizing: box;
   /* overflow: hidden; */
+}
+
+.scroll {
+  overflow: scroll;
+  scrollbar-color: #222222 #12121212;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
 }

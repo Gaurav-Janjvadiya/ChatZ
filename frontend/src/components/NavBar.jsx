@@ -9,8 +9,8 @@ function NavBar() {
   } = useAuth();
   const navigate = useNavigate();
   return (
-    <div className="p-2 h-full">
-      <div className="border flex flex-col gap-2   h-full border-gray-500 rounded-xl p-2">
+    <div className="bg-[#121212] rounded-xl p-2 h-full">
+      <div className=" flex flex-col gap-2 h-full">
         {isLoggedIn ? (
           <>
             <button
@@ -18,7 +18,7 @@ function NavBar() {
                 logout();
                 navigate("/");
               }}
-              className="bg-gray-300 text-black px-4 py-2 rounded"
+              className="bg-[#222222] px-4 py-2 rounded"
             >
               Logout
             </button>

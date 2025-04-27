@@ -8,6 +8,7 @@ const useMessages = (activeReceiver) => {
     refetchOnWindowFocus: false,
     enabled: Boolean(activeReceiver),
   });
+  data ? console.log(data.messages[0]) : "";
   return { isLoading, messages: data?.messages };
 };
 

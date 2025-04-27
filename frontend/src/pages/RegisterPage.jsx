@@ -28,19 +28,19 @@ function RegisterPage() {
     <div>
       <form className="grid" onSubmit={handleSubmit(onSubmit)}>
         <input
-          className="border"
+          className=""
           placeholder=""
           type="text"
           {...register("name")}
         />
         <input
-          className="border"
+          className=""
           placeholder=""
           type="email"
           {...register("email")}
         />
         <input
-          className="border"
+          className=""
           placeholder=""
           type="password"
           {...register("password")}

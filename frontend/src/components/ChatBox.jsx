@@ -6,12 +6,11 @@ function ChatBox({ name }) {
   return (
     <>
       <div
-        className="w-full p-2 bg-gray-300 rounded-xl mb-1 cursor-pointer active:bg-gray-400"
+        className="w-full p-2 bg-[#222222] rounded-xl mb-1 cursor-pointer"
         onClick={() => updateReceiver(name)}
       >
         {name}
       </div>
-      <hr />
     </>
   );
 }
