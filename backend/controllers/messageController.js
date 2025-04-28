@@ -4,21 +4,23 @@ import User from "../models/User.js";
 
 export const sendMessage = async (req, res) => {
   const { content, receiver } = req.body;
-  // console.log(content, receiver);
   try {
     const otherUser = await User.findOne({ name: receiver });
-    // console.log(otherUser);
-    const sender = await User.find({ name: req.name });
-    const chat = await Chat.find({ users: [sender[0]._id, receiver[1]._id] });
+    const sender = await User.findOne({ name: req.name });
+    const chat = await Chat.findOne({
+      users: { $all: [sender._id, otherUser._id] },
+    });
     const message = await Message.create({
       sender: otherUser._id,
       chat: chat._id,
       content,
     });
-    await Chat.updateOne(chat._id, {
-      lastMessage: message._id,
-    });
-    // console.log(UpdatedChat);
+    await Chat.updateOne(
+      { _id: chat._id },
+      {
+        lastMessage: message._id,
+      }
+    );
     res.json({ message });
   } catch (error) {
     console.log("Error during sending msg", error);
@@ -29,17 +31,21 @@ export const sendMessage = async (req, res) => {
 export const fetchMessages = async (req, res) => {
   const { name: otherUserName } = req.params;
   const currentUserName = req.name;
-  // console.log(otherUserName, currentUserName);
+  console.log("Fetching messages for ", otherUserName, currentUserName);
 
   try {
     const users = await User.find({
       name: { $in: [otherUserName, currentUserName] },
     });
-    const chat = await Chat.find({ users: [users[0]._id, users[1]._id] });
+    const chat = await Chat.findOne({
+      users: [users[0]._id, users[1]._id],
+    }).populate("users");
+    console.log("Chat ", chat);
     const messages = await Message.find({ chat: chat._id }).populate({
       path: "sender",
       select: "name",
     });
+    console.log(messages);
     res.json({ messages });
   } catch (error) {
     console.log("Error during fetching msgs", error);

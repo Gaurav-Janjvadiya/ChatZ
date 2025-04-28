@@ -1,6 +1,7 @@
 import React from "react";
 import useAuth from "../context/AuthContext";
 import { Link, useNavigate } from "react-router";
+import { logout as userlogoout } from "../api/user.js";
 
 function NavBar() {
   const {
@@ -16,26 +17,23 @@ function NavBar() {
             <button
               onClick={() => {
                 logout();
+                userlogoout();
                 navigate("/");
               }}
               className="bg-[#222222] px-4 py-2 rounded"
             >
               Logout
             </button>
-            <br />
+            <Link to={"/chat"} className="bg-[#222222] px-4 py-2 rounded">
+              Chat
+            </Link>
           </>
         ) : (
           <>
-            <Link
-              to={"/register"}
-              className="bg-gray-300 text-black px-4 py-2 rounded"
-            >
+            <Link to={"/register"} className="bg-[#222222] px-4 py-2 rounded">
               SignUp
             </Link>
-            <Link
-              to={"/login"}
-              className="bg-gray-300 text-black px-4 py-2 rounded"
-            >
+            <Link to={"/login"} className="bg-[#222222] px-4 py-2 rounded">
               Login
             </Link>
           </>

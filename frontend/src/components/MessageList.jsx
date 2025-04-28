@@ -50,7 +50,7 @@ function MessageList() {
 
   if (!activeReceiver) {
     return (
-      <div className="p-2 h-full max-h-screen">
+      <div className="bg-[#121212] rounded-xl p-2 h-full max-h-screen">
         <div className="flex h-full p-3 rounded-xl items-center justify-center">
           <p className="text-lg text-gray-600 font-medium">
             Please select a user to start chatting
@@ -62,21 +62,23 @@ function MessageList() {
 
   return (
     <div className="bg-[#121212] rounded-xl p-2 h-full max-h-screen">
-      <div className="h-full p-3 rounded-xl scroll flex flex-col items-center justify-between">
-        <div className="w-full h-[90%] space-y-1 overflow-y-scroll">
+      <div className="h-full p-3 rounded-xl flex flex-col items-center justify-between">
+        <div className="w-full h-[90%] space-y-1 scroll overflow-y-scroll">
           {messages?.map((message) => (
             <MessageBubble key={message._id} message={message} name={name} />
           ))}
           {currentMessages.map((message, index) => (
             <div
               className={`w-full flex items-center  ${
-                name === message.sender
-                  ? "justify-start bg-[#2C2C2C]"
-                  : "justify-end bg[#1F1F1F]"
+                name === message.sender ? "justify-start " : "justify-end "
               }`}
               key={index}
             >
-              <p className="w-fit p-2  -700-400800 rounded-lg flex items-center justify-start break-all">
+              <p
+                className={`w-fit p-2 rounded-lg flex items-center justify-start break-all ${
+                  name === message.sender ? "bg-[#2C2C2C]" : "bg-[#1F1F1F]"
+                }`}
+              >
                 {message.message}
               </p>
             </div>
@@ -102,9 +104,7 @@ function MessageList() {
               {isPending ? (
                 <span className="spinner">Sending...</span>
               ) : (
-                <span className="material-symbols-outlined text-3xl">
-                  send
-                </span>
+                <span className="material-symbols-outlined text-3xl">send</span>
               )}
             </button>
           </form>

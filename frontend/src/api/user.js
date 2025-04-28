@@ -17,3 +17,25 @@ export const login = async (userData) => {
     console.log("login error", error);
   }
 };
+
+export const logout = async () => {
+  try {
+    const { data } = await axiosInstance.post("/logout", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+    });
+    return data;
+  } catch (error) {
+    console.log("users fetching error", error);
+  }
+};
+
+export const fetchUsers = async () => {
+  try {
+    const { data } = await axiosInstance.get("/user", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+    });
+    return data;
+  } catch (error) {
+    console.log("users fetching error", error);
+  }
+};

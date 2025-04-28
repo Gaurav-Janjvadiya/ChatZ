@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useChat } from "../context/ChatContext.jsx";
 
 function ChatBox({ name }) {
-  const { updateReceiver } = useChat();
+  const { updateReceiver, receiver } = useChat();
+  useEffect(() => {
+    console.log({ name, receiver });
+  }, [updateReceiver]);
   return (
     <>
       <div

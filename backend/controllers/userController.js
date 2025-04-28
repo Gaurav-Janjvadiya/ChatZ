@@ -26,3 +26,19 @@ export const login = async (req, res) => {
     res.json({ message: "Login Failed" });
   }
 };
+
+export const logout = async (req, res) => {
+  delete req.name;
+  // req.name && console.log("True");
+  res.json({ message: "Logged Out" });
+};
+
+export const fetchUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json({ users });
+  } catch (error) {
+    console.log("User Fetching Error", error);
+    res.json({ message: "User Fetching Failed" });
+  }
+};

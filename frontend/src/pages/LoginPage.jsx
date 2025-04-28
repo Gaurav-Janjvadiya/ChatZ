@@ -6,11 +6,8 @@ import useAuth from "../context/AuthContext";
 import { useNavigate } from "react-router";
 
 function LoginPage() {
-  const {
-    login,
-    user: { isLoggedIn },
-  } = useAuth();
-  const { register, handleSubmit } = useForm();
+  const { login } = useAuth();
+  const { register, handleSubmit, setValue } = useForm(); // pulled setValue too 👀
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
@@ -18,7 +15,6 @@ function LoginPage() {
     mutationFn: loginUser,
     onSuccess: ({ token }) => {
       login();
-      // console.log(isLoggedIn);
       localStorage.setItem("jwt", token);
       navigate("/chat");
     },
@@ -28,23 +24,42 @@ function LoginPage() {
     mutate(data);
   };
 
+  const handleAddCredential = () => {
+    setValue("email", "demo@email.com");
+    setValue("password", "demopassword123");
+  };
+
   return (
-    <div>
-      <form className="grid" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          className=""
-          placeholder=""
-          type="email"
-          {...register("email")}
-        />
-        <input
-          className=""
-          placeholder=""
-          type="password"
-          {...register("password")}
-        />
-        <button className="">Login</button>
-      </form>
+    <div className="h-screen w-full flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <form className="grid gap-2" onSubmit={handleSubmit(onSubmit)}>
+          <input
+            className="bg-[#121212] px-2 py-1 rounded-lg outline-none"
+            placeholder="email"
+            type="email"
+            {...register("email")}
+          />
+          <input
+            className="bg-[#121212] px-2 py-1 rounded-lg outline-none"
+            placeholder="password"
+            type="password"
+            {...register("password")}
+          />
+          <button
+            type="submit"
+            className="bg-[#1A66FF] text-white py-1 rounded-lg hover:bg-blue-700 transition"
+          >
+            Login
+          </button>
+        </form>
+
+        <button
+          onClick={handleAddCredential}
+          className="bg-[#FF5733] text-white px-4 py-1 rounded-lg hover:bg-[#e04e2b] transition"
+        >
+          Add Credential
+        </button>
+      </div>
     </div>
   );
 }

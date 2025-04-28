@@ -25,31 +25,36 @@ function RegisterPage() {
   };
 
   return (
-    <div>
-      <form className="grid" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          className=""
-          placeholder=""
-          type="text"
-          {...register("name")}
-        />
-        <input
-          className=""
-          placeholder=""
-          type="email"
-          {...register("email")}
-        />
-        <input
-          className=""
-          placeholder=""
-          type="password"
-          {...register("password")}
-        />
-        <button className="">SignUp</button>
-      </form>
-      <Link to={"/login"}>LoginPage</Link>
-      <br />
-      <Link to={"/chat"}>Chat</Link>
+    <div className="h-screen w-full flex items-center justify-center">
+      <div>
+        <form className="grid gap-2" onSubmit={handleSubmit(onSubmit)}>
+          <input
+            className="bg-[#121212] px-2 rounded-lg outline-none"
+            placeholder="name"
+            type="text"
+            {...register("name")}
+          />
+          <input
+            className="bg-[#121212] px-2 rounded-lg outline-none"
+            placeholder="email"
+            type="email"
+            {...register("email")}
+          />
+          <input
+            className="bg-[#121212] px-2 rounded-lg outline-none"
+            placeholder="password"
+            type="password"
+            {...register("password")}
+          />
+          <button className="bg-[#1A66FF] rounded-lg">SignUp</button>
+        </form>
+        <p>
+          If you have an accound please{" "}
+          <Link to={"/login"} className="underline">
+            login
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
