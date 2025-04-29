@@ -7,7 +7,6 @@ const useChats = () => {
     queryFn: fetchChats,
     refetchOnWindowFocus: false,
   });
-
   return { isLoading, chats: data?.chats };
 };
 

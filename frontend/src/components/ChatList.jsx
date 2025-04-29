@@ -19,14 +19,13 @@ function ChatList() {
 
   const onSubmit = (data) => {
     mutate(data);
-    console.log(data);
   };
 
   return (
     <div className="bg-[#121212] space-y-4 rounded-xl p-2 h-full">
-      <form onSubmit={handleSubmit(onSubmit)} className="grid w-1/2 gap-2">
+      <form onSubmit={handleSubmit(onSubmit)} className="grid sm:w-1/2 gap-2">
         <select
-          className="bg-[#222222] outline-none px-2 py-3 rounded-xl"
+          className="capitalize bg-[#222222] outline-none px-2 py-3 rounded-xl"
           {...register("name")}
         >
           {usersLoading ? (
@@ -34,7 +33,7 @@ function ChatList() {
           ) : (
             <>
               {users?.map((user) => (
-                <option key={user._id} value={user.name}>
+                <option className="" key={user._id} value={user.name}>
                   {user.name}
                 </option>
               ))}
@@ -44,7 +43,7 @@ function ChatList() {
         <button
           type="submit"
           disabled={isPending}
-          className="bg-[#1A66FF] text-white py-1 rounded-lg hover:bg-blue-700 transition"
+          className="bg-[#1A66FF] text-white py-1 rounded-xl hover:bg-blue-700 transition"
         >
           {isPending ? "Creating..." : "Create Chat"}
         </button>
@@ -58,6 +57,7 @@ function ChatList() {
               <ChatBox
                 key={chat._id}
                 name={chat.users.find((user) => user.name !== name).name}
+                lastMessage={chat?.lastMessage?.content}
               />
             ))}
           </>

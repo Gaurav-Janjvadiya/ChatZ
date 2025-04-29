@@ -24,7 +24,7 @@ function NavBar() {
             >
               Logout
             </button>
-            <Link to={"/chat"} className="bg-[#222222] px-4 py-2 rounded">
+            <Link to={"/chat"} className="bg-[#222222] text-center px-4 py-2 rounded">
               Chat
             </Link>
           </>

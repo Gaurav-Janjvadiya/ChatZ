@@ -3,7 +3,7 @@ function MessageInput({ sendMessageHandler }) {
     <>
       <div className="w-full h-[12%]">
         <form
-          className="flex w-full items-center justify-center space-x-1 p-1 rounded-md"
+          className="flex w-full items-center justify-center space-x-1 p-1 rounded-xl"
           onSubmit={handleSubmit(onSubmit)}
         >
           <TextField

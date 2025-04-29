@@ -29,24 +29,24 @@ function RegisterPage() {
       <div>
         <form className="grid gap-2" onSubmit={handleSubmit(onSubmit)}>
           <input
-            className="bg-[#121212] px-2 rounded-lg outline-none"
+            className="bg-[#121212] px-2 rounded-xl outline-none"
             placeholder="name"
             type="text"
             {...register("name")}
           />
           <input
-            className="bg-[#121212] px-2 rounded-lg outline-none"
+            className="bg-[#121212] px-2 rounded-xl outline-none"
             placeholder="email"
             type="email"
             {...register("email")}
           />
           <input
-            className="bg-[#121212] px-2 rounded-lg outline-none"
+            className="bg-[#121212] px-2 rounded-xl outline-none"
             placeholder="password"
             type="password"
             {...register("password")}
           />
-          <button className="bg-[#1A66FF] rounded-lg">SignUp</button>
+          <button className="bg-[#1A66FF] rounded-xl">SignUp</button>
         </form>
         <p>
           If you have an accound please{" "}

@@ -46,7 +46,6 @@ io.on("connection", (socket) => {
     console.log("User joined room " + room);
   });
   socket.on("send_message", (room, message, sender) => {
-    console.log({ room, message, sender });
     io.to(room).emit("new_message", {
       sender,
       message

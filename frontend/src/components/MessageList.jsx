@@ -11,13 +11,11 @@ function MessageList() {
   const { activeReceiver } = useChat();
   const { isLoading, messages } = useMessages(activeReceiver);
   const [currentMessages, setCurrentMessages] = useState([]);
-  const endRef = useRef(null);
   const {
     user: { name },
   } = useAuth();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, watch } = useForm();
   const { isPending, mutate } = useSendMessages();
-
   let room = useMemo(() => {
     let roomname;
     if (activeReceiver && name) {
@@ -44,13 +42,12 @@ function MessageList() {
   const onSubmit = (content) => {
     mutate({ content, receiver: activeReceiver });
     socket.emit("send_message", room, content.content, activeReceiver);
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
     reset();
   };
 
   if (!activeReceiver) {
     return (
-      <div className="bg-[#121212] rounded-xl p-2 h-full max-h-screen">
+      <div className="bg-[#121212] rounded-xl p-2 sm:h-full sm:max-h-screen">
         <div className="flex h-full p-3 rounded-xl items-center justify-center">
           <p className="text-lg text-gray-600 font-medium">
             Please select a user to start chatting
@@ -64,26 +61,35 @@ function MessageList() {
     <div className="bg-[#121212] rounded-xl p-2 h-full max-h-screen">
       <div className="h-full p-3 rounded-xl flex flex-col items-center justify-between">
         <div className="w-full h-[90%] space-y-1 scroll overflow-y-scroll">
-          {messages?.map((message) => (
-            <MessageBubble key={message._id} message={message} name={name} />
-          ))}
-          {currentMessages.map((message, index) => (
-            <div
-              className={`w-full flex items-center  ${
-                name === message.sender ? "justify-start " : "justify-end "
-              }`}
-              key={index}
-            >
-              <p
-                className={`w-fit p-2 rounded-lg flex items-center justify-start break-all ${
-                  name === message.sender ? "bg-[#2C2C2C]" : "bg-[#1F1F1F]"
-                }`}
-              >
-                {message.message}
-              </p>
-            </div>
-          ))}
-          <span ref={endRef}></span>
+          {messages?.length === 0 && currentMessages?.length === 0 ? (
+            <p className="font-extrabold text-lg h-full w-full text-gray-600 flex items-center justify-center italic">Say hii</p>
+          ) : (
+            <>
+              {messages?.map((message) => (
+                <MessageBubble
+                  key={message._id}
+                  message={message}
+                  name={name}
+                />
+              ))}
+              {currentMessages.map((message, index) => (
+                <div
+                  className={`w-full flex items-center  ${
+                    name === message.sender ? "justify-start " : "justify-end "
+                  }`}
+                  key={index}
+                >
+                  <p
+                    className={`w-fit p-2 rounded-xl flex items-center justify-start break-all ${
+                      name === message.sender ? "bg-[#2C2C2C]" : "bg-[#1F1F1F]"
+                    }`}
+                  >
+                    {message.message}
+                  </p>
+                </div>
+              ))}
+            </>
+          )}
         </div>
         <div className="w-full">
           <form

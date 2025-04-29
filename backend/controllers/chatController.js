@@ -24,11 +24,12 @@ export const fetchChats = async (req, res) => {
     const chats = await Chat.find({
       users: { $in: [currentUser._id] },
     })
+      .populate({ path: "lastMessage", select: "content" })
       .populate({
         path: "users",
         select: "name",
-      })
-      .populate("lastMessage");
+      });
+    console.log(chats);
     res.json({ chats });
   } catch (error) {
     console.log("Error during Chat fetching creation", error);

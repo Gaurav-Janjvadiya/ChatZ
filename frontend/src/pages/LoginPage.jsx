@@ -34,20 +34,20 @@ function LoginPage() {
       <div className="flex flex-col items-center gap-4">
         <form className="grid gap-2" onSubmit={handleSubmit(onSubmit)}>
           <input
-            className="bg-[#121212] px-2 py-1 rounded-lg outline-none"
+            className="bg-[#121212] px-2 py-1 rounded-xl outline-none"
             placeholder="email"
             type="email"
             {...register("email")}
           />
           <input
-            className="bg-[#121212] px-2 py-1 rounded-lg outline-none"
+            className="bg-[#121212] px-2 py-1 rounded-xl outline-none"
             placeholder="password"
             type="password"
             {...register("password")}
           />
           <button
             type="submit"
-            className="bg-[#1A66FF] text-white py-1 rounded-lg hover:bg-blue-700 transition"
+            className="bg-[#1A66FF] text-white py-1 rounded-xl hover:bg-blue-700 transition"
           >
             Login
           </button>
@@ -55,7 +55,7 @@ function LoginPage() {
 
         <button
           onClick={handleAddCredential}
-          className="bg-[#FF5733] text-white px-4 py-1 rounded-lg hover:bg-[#e04e2b] transition"
+          className="bg-[#FF5733] text-white px-4 py-1 rounded-xl hover:bg-[#e04e2b] transition"
         >
           Add Credential
         </button>

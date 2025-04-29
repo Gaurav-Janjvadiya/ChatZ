@@ -31,7 +31,6 @@ export const sendMessage = async (req, res) => {
 export const fetchMessages = async (req, res) => {
   const { name: otherUserName } = req.params;
   const currentUserName = req.name;
-  console.log("Fetching messages for ", otherUserName, currentUserName);
 
   try {
     const users = await User.find({
@@ -40,12 +39,10 @@ export const fetchMessages = async (req, res) => {
     const chat = await Chat.findOne({
       users: [users[0]._id, users[1]._id],
     }).populate("users");
-    console.log("Chat ", chat);
     const messages = await Message.find({ chat: chat._id }).populate({
       path: "sender",
       select: "name",
     });
-    console.log(messages);
     res.json({ messages });
   } catch (error) {
     console.log("Error during fetching msgs", error);
