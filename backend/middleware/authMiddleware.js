@@ -8,7 +8,7 @@ const authMiddleware = (req, res, next) => {
     next();
   } else {
     throw new Error("User Not Logged in");
-    res.json({ message: "Not Authorized" });
+    res.status(401).json({ message: "Not Authorized" });
   }
 };
 

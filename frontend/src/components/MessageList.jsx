@@ -59,10 +59,20 @@ function MessageList() {
 
   return (
     <div className="bg-[#121212] rounded-xl p-2 h-full max-h-screen">
-      <div className="h-full p-3 rounded-xl flex flex-col items-center justify-between">
+      <div className="h-full rounded-xl flex flex-col items-center justify-between">
+        <div className="w-full mb-4 flex items-start justify-start space-x-2 p-2 bg-[#222222] rounded-xl mb-1 cursor-pointer">
+          <div className="rounded-full capitalize h-14 w-14 bg-[#121212] flex items-center justify-center text-3xl ">
+            {activeReceiver[0]}
+          </div>
+          <div className="w-auto h-full flex items-center justify-start p-2">
+            <p className="text-xl capitalize">{activeReceiver}</p>
+          </div>
+        </div>
         <div className="w-full h-[90%] space-y-1 scroll overflow-y-scroll">
           {messages?.length === 0 && currentMessages?.length === 0 ? (
-            <p className="font-extrabold text-lg h-full w-full text-gray-600 flex items-center justify-center italic">Say hii</p>
+            <p className="font-extrabold text-lg h-full w-full text-gray-600 flex items-center justify-center italic">
+              Say hii
+            </p>
           ) : (
             <>
               {messages?.map((message) => (

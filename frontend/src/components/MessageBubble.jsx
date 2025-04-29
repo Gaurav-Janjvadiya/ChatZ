@@ -1,10 +1,6 @@
 import React from "react";
-import RelativeTime from "dayjs/plugin/relativeTime";
-import dayjs from "dayjs";
 
 function MessageBubble({ name, message }) {
-  dayjs.extend(RelativeTime);
-  // console.log(message.createdAt);
   return (
     <div
       className={`w-full flex items-center  ${

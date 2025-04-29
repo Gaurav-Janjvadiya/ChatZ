@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ChatBox from "./ChatBox";
 import useAuth from "../context/AuthContext.jsx";
 import useChats from "../hooks/useChats.js";
@@ -21,33 +21,42 @@ function ChatList() {
     mutate(data);
   };
 
+  const usersNotInChat = useMemo(() => {
+    return users?.filter(
+      (u) =>
+        !chats?.some((chat) => chat.users?.some((cu) => cu.name === u.name))
+    );
+  }, [chats, users]);
+
   return (
     <div className="bg-[#121212] space-y-4 rounded-xl p-2 h-full">
-      <form onSubmit={handleSubmit(onSubmit)} className="grid sm:w-1/2 gap-2">
-        <select
-          className="capitalize bg-[#222222] outline-none px-2 py-3 rounded-xl"
-          {...register("name")}
-        >
-          {usersLoading ? (
-            "Loading.."
-          ) : (
-            <>
-              {users?.map((user) => (
-                <option className="" key={user._id} value={user.name}>
-                  {user.name}
-                </option>
-              ))}
-            </>
-          )}
-        </select>
-        <button
-          type="submit"
-          disabled={isPending}
-          className="bg-[#1A66FF] text-white py-1 rounded-xl hover:bg-blue-700 transition"
-        >
-          {isPending ? "Creating..." : "Create Chat"}
-        </button>
-      </form>
+      {usersNotInChat.length !== 0 && (
+        <form onSubmit={handleSubmit(onSubmit)} className="grid sm:w-1/2 gap-2">
+          <select
+            className="capitalize bg-[#222222] outline-none px-2 py-3 rounded-xl"
+            {...register("name")}
+          >
+            {usersLoading ? (
+              "Loading.."
+            ) : (
+              <>
+                {usersNotInChat?.map((user) => (
+                  <option className="" key={user._id} value={user.name}>
+                    {user.name}
+                  </option>
+                ))}
+              </>
+            )}
+          </select>
+          <button
+            type="submit"
+            disabled={isPending}
+            className="bg-[#1A66FF] text-white py-1 rounded-xl hover:bg-blue-700 transition"
+          >
+            {isPending ? "Creating..." : "Create Chat"}
+          </button>
+        </form>
+      )}
       <div className="h-full">
         {isLoading ? (
           <div className="space-y-3">Loading...</div>

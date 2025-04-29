@@ -39,6 +39,7 @@ export const fetchMessages = async (req, res) => {
     const chat = await Chat.findOne({
       users: [users[0]._id, users[1]._id],
     }).populate("users");
+    
     const messages = await Message.find({ chat: chat._id }).populate({
       path: "sender",
       select: "name",

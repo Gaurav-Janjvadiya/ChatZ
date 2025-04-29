@@ -25,8 +25,8 @@ function LoginPage() {
   };
 
   const handleAddCredential = () => {
-    setValue("email", "demo@email.com");
-    setValue("password", "demopassword123");
+    setValue('email', 'demo@email.com');
+    setValue('password', 'demo');
   };
 
   return (

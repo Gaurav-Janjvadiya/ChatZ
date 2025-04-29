@@ -29,7 +29,6 @@ export const fetchChats = async (req, res) => {
         path: "users",
         select: "name",
       });
-    console.log(chats);
     res.json({ chats });
   } catch (error) {
     console.log("Error during Chat fetching creation", error);
