@@ -10,8 +10,10 @@ function MessageBubble({ name, message }) {
     >
       <p
         className={`w-fit p-2 font-semibold  ${
-          name === message.sender.name ? "bg-[#2C2C2C]" : "bg-[#1F1F1F]"
-        } rounded-xl flex items-start flex-col justify-center break-all`}
+          name === message.sender.name
+            ? "bg-[#2C2C2C] rounded-e-xl rounded-bl-xl"
+            : "bg-[#1F1F1F] rounded-s-xl rounded-br-xl"
+        } flex items-start flex-col justify-center break-all`}
       >
         {message.content}
       </p>

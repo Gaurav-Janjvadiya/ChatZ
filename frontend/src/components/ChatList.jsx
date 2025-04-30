@@ -30,7 +30,7 @@ function ChatList() {
 
   return (
     <div className="bg-[#121212] space-y-4 rounded-xl p-2 h-full">
-      {usersNotInChat.length !== 0 && (
+      {usersNotInChat?.length !== 0 && (
         <form onSubmit={handleSubmit(onSubmit)} className="grid sm:w-1/2 gap-2">
           <select
             className="capitalize bg-[#222222] outline-none px-2 py-3 rounded-xl"

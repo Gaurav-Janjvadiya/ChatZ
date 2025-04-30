@@ -9,7 +9,7 @@ import { useChat } from "../context/ChatContext.jsx";
 
 function MessageList() {
   const { activeReceiver } = useChat();
-  const { isLoading, messages } = useMessages(activeReceiver);
+  const { messages } = useMessages(activeReceiver);
   const [currentMessages, setCurrentMessages] = useState([]);
   const {
     user: { name },
@@ -60,7 +60,7 @@ function MessageList() {
   return (
     <div className="bg-[#121212] rounded-xl p-2 h-full max-h-screen">
       <div className="h-full rounded-xl flex flex-col items-center justify-between">
-        <div className="w-full mb-4 flex items-start justify-start space-x-2 p-2 bg-[#222222] rounded-xl mb-1 cursor-pointer">
+        <div className="w-full mb-4 flex items-start justify-start space-x-2 p-2 bg-[#222222] rounded-xl cursor-pointer">
           <div className="rounded-full capitalize h-14 w-14 bg-[#121212] flex items-center justify-center text-3xl ">
             {activeReceiver[0]}
           </div>
@@ -68,7 +68,7 @@ function MessageList() {
             <p className="text-xl capitalize">{activeReceiver}</p>
           </div>
         </div>
-        <div className="w-full h-[90%] space-y-1 scroll overflow-y-scroll">
+        <div className="w-full font-semibold h-[90%] space-y-1 scroll overflow-y-scroll">
           {messages?.length === 0 && currentMessages?.length === 0 ? (
             <p className="font-extrabold text-lg h-full w-full text-gray-600 flex items-center justify-center italic">
               Say hii
@@ -90,8 +90,10 @@ function MessageList() {
                   key={index}
                 >
                   <p
-                    className={`w-fit p-2 rounded-xl flex items-center justify-start break-all ${
-                      name === message.sender ? "bg-[#2C2C2C]" : "bg-[#1F1F1F]"
+                    className={`w-fit p-2 rounded-s-xl rounded-br-xl flex items-center justify-start break-all ${
+                      name === message.sender
+                        ? "bg-[#2C2C2C] rounded-e-xl rounded-bl-xl"
+                        : "bg-[#1F1F1F] rounded-s-xl rounded-br-xl"
                     }`}
                   >
                     {message.message}
