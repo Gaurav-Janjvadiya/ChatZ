@@ -22,8 +22,9 @@ app.use("/api/user", userRouter);
 app.use("/api/chat", chatRouter);
 app.use("/api/message", messageRouter);
 
-app.use((err, req, res) => {
-  console.log(err);
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
 });
 
 server.listen(process.env.PORT, () => {
@@ -48,7 +49,7 @@ io.on("connection", (socket) => {
   socket.on("send_message", (room, message, sender) => {
     io.to(room).emit("new_message", {
       sender,
-      message
+      message,
     });
   });
 
